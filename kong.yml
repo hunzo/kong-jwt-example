@@ -1,0 +1,25 @@
+_format_version: "2.1"
+
+services:
+- name: my-api-server
+  url: http://httpbin.org/anything
+
+  routes:
+  - name: api-requests
+    service: my-api-server
+    paths:
+    - /api
+
+  plugins:
+  - name: jwt
+    service: my-api-server
+    enabled: true
+    config:
+      key_claim_name: kid
+      claims_to_verify:
+        - exp
+consumers:
+- username: login_server_issuer
+  jwt_secrets:
+  - consumer: login_server_issuer
+    secret: jwtsecret

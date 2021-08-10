@@ -1,0 +1,26 @@
+version: '3.7'
+services: 
+  kong:
+    image: kong:${TAG-latest}
+    env_file: 
+      - kong.env
+    volumes: 
+      - ./kong.yml:/config/kong.yml
+    networks:
+      - kong-net
+    ports: 
+      - 127.0.0.1:8001:8001
+      - 127.0.0.1:8444:8444
+      - 8000:8000
+      - 8443:8443
+  jwtapp:
+    build: 
+      context: jwtapp/
+    ports: 
+      - 3000:3000
+    networks:
+      - kong-net
+
+networks: 
+  kong-net:
+    external: true
