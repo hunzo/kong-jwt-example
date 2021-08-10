@@ -1,3 +1,7 @@
+# Start Container 
+```
+docker-compose up --build -d
+```
 # Get `key` from kong
 ```shell
 http :8001/consumers/login_server_issuer/jwt
